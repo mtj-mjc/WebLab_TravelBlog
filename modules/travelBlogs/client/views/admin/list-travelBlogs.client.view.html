@@ -1,0 +1,26 @@
+﻿<section>
+  <div class="page-header">
+    <h1>
+      TravelBlogs
+      <a class="btn btn-primary pull-right" data-ui-sref="admin.travelBlogs.create">
+        <i class="glyphicon glyphicon-plus"></i>
+      </a>
+    </h1>
+  </div>
+  <div class="list-group">
+    <a data-ng-repeat="travelBlog in vm.travelBlogs" data-ui-sref="admin.travelBlogs.edit({travelBlogId: travelBlog._id})" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span data-ng-bind="travelBlog.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="travelBlog.user" ng-bind="travelBlog.user.displayName"></span>
+        <span ng-if="!travelBlog.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" data-ng-bind="travelBlog.title"></h4>
+      <p class="list-group-item-text" data-ng-bind="travelBlog.content"></p>
+    </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="vm.travelBlogs.$resolved && !vm.travelBlogs.length">
+    No travelBlogs yet, why don't you <a data-ui-sref="admin.travelBlogs.create">create one</a>?
+  </div>
+</section>

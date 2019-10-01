@@ -1,0 +1,21 @@
+<section>
+  <div class="page-header">
+    <h1>Welcome to {{ travelBlog.user.displayName }} TravelBlog
+      <a class="btn btn-primary pull-right" data-ui-sref="admin.travelBlogs.create">
+        <i class="glyphicon glyphicon-plus"></i>
+      </a></h1>
+  </div>
+  <div class="list-group">
+    <a ng-repeat="travelBlog in vm.travelBlogs" ui-sref="travelBlogs.view({ travelBlogId: travelBlog._id })" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="travelBlog.created | date:'mediumDate'"></span>
+        by
+        <span ng-if="travelBlog.user" ng-bind="travelBlog.user.displayName"></span>
+        <span ng-if="!travelBlog.user">Deleted User</span>
+      </small>
+      <h4 class="list-group-item-heading" ng-bind="travelBlog.title"></h4>
+      <p class="list-group-item-text" ng-bind="travelBlog.content"></p>
+    </a>
+  </div>
+</section>

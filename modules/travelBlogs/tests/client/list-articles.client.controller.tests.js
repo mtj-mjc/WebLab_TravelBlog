@@ -1,15 +1,15 @@
-﻿(function () {
+(function () {
   'use strict';
 
-  describe('Admin Articles List Controller Tests', function () {
+  describe('TravelBlogs List Controller Tests', function () {
     // Initialize global variables
-    var ArticlesAdminListController,
+    var TravelBlogsListController,
       $scope,
       $httpBackend,
       $state,
       Authentication,
-      ArticlesService,
-      mockArticle;
+      TravelBlogsService,
+      mockTravelBlog;
 
     // The $resource service augments the response object with methods for updating and deleting the resource.
     // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
@@ -36,7 +36,7 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _ArticlesService_) {
+    beforeEach(inject(function ($controller, $rootScope, _$state_, _$httpBackend_, _Authentication_, _TravelBlogsService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
 
@@ -44,26 +44,22 @@
       $httpBackend = _$httpBackend_;
       $state = _$state_;
       Authentication = _Authentication_;
-      ArticlesService = _ArticlesService_;
+      TravelBlogsService = _TravelBlogsService_;
 
-      // Ignore parent template get on state transitions
-      $httpBackend.whenGET('/modules/articles/client/views/list-travelBlogs.client.view.html').respond(200, '');
-      $httpBackend.whenGET('/modules/core/client/views/home.client.view.html').respond(200, '');
-
-      // create mock article
-      mockArticle = new ArticlesService({
+      // create mock travelBlog
+      mockTravelBlog = new TravelBlogsService({
         _id: '525a8422f6d0f87f0e407a33',
-        title: 'An Article about MEAN',
+        title: 'An TravelBlog about MEAN',
         content: 'MEAN rocks!'
       });
 
       // Mock logged in user
       Authentication.user = {
-        roles: ['user', 'admin']
+        roles: ['user']
       };
 
-      // Initialize the Articles List controller.
-      ArticlesAdminListController = $controller('ArticlesAdminListController as vm', {
+      // Initialize the TravelBlogs List controller.
+      TravelBlogsListController = $controller('TravelBlogsListController as vm', {
         $scope: $scope
       });
 
@@ -72,23 +68,25 @@
     }));
 
     describe('Instantiate', function () {
-      var mockArticleList;
+      var mockTravelBlogList;
 
       beforeEach(function () {
-        mockArticleList = [mockArticle, mockArticle];
+        mockTravelBlogList = [mockTravelBlog, mockTravelBlog];
       });
 
-      it('should send a GET request and return all articles', inject(function (ArticlesService) {
+      it('should send a GET request and return all travelBlogs', inject(function (TravelBlogsService) {
         // Set POST response
-        $httpBackend.expectGET('/api/articles').respond(mockArticleList);
+        $httpBackend.expectGET('/api/travelBlogs').respond(mockTravelBlogList);
 
+        // Ignore parent template get on state transition
+        $httpBackend.whenGET('/modules/core/client/views/home.client.view.html').respond(200, '');
 
         $httpBackend.flush();
 
         // Test form inputs are reset
-        expect($scope.vm.articles.length).toEqual(2);
-        expect($scope.vm.articles[0]).toEqual(mockArticle);
-        expect($scope.vm.articles[1]).toEqual(mockArticle);
+        expect($scope.vm.travelBlogs.length).toEqual(2);
+        expect($scope.vm.travelBlogs[0]).toEqual(mockTravelBlog);
+        expect($scope.vm.travelBlogs[1]).toEqual(mockTravelBlog);
 
       }));
     });

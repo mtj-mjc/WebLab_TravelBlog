@@ -1,10 +1,10 @@
 (function () {
   'use strict';
 
-  describe('Articles Route Tests', function () {
+  describe('TravelBlogs Route Tests', function () {
     // Initialize global variables
     var $scope,
-      ArticlesService;
+      TravelBlogsService;
 
     // We can start by loading the main application module
     beforeEach(module(ApplicationConfiguration.applicationModuleName));
@@ -12,21 +12,21 @@
     // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
     // This allows us to inject a service but then attach it to a variable
     // with the same name as the service.
-    beforeEach(inject(function ($rootScope, _ArticlesService_) {
+    beforeEach(inject(function ($rootScope, _TravelBlogsService_) {
       // Set a new global scope
       $scope = $rootScope.$new();
-      ArticlesService = _ArticlesService_;
+      TravelBlogsService = _TravelBlogsService_;
     }));
 
     describe('Route Config', function () {
       describe('Main Route', function () {
         var mainstate;
         beforeEach(inject(function ($state) {
-          mainstate = $state.get('articles');
+          mainstate = $state.get('travelBlogs');
         }));
 
         it('Should have the correct URL', function () {
-          expect(mainstate.url).toEqual('/articles');
+          expect(mainstate.url).toEqual('/travelBlogs');
         });
 
         it('Should be abstract', function () {
@@ -41,7 +41,7 @@
       describe('List Route', function () {
         var liststate;
         beforeEach(inject(function ($state) {
-          liststate = $state.get('articles.list');
+          liststate = $state.get('travelBlogs.list');
         }));
 
         it('Should have the correct URL', function () {
@@ -53,50 +53,50 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(liststate.templateUrl).toBe('/modules/articles/client/views/list-travelBlogs.client.view.html');
+          expect(liststate.templateUrl).toBe('/modules/travelBlogs/client/views/list-travelBlogs.client.view.html');
         });
       });
 
       describe('View Route', function () {
         var viewstate,
-          ArticlesController,
-          mockArticle;
+          TravelBlogsController,
+          mockTravelBlog;
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
-          viewstate = $state.get('articles.view');
-          $templateCache.put('/modules/articles/client/views/view-travelBlog.client.view.html', '');
+          viewstate = $state.get('travelBlogs.view');
+          $templateCache.put('/modules/travelBlogs/client/views/view-travelBlog.client.view.html', '');
 
-          // create mock article
-          mockArticle = new ArticlesService({
+          // create mock travelBlog
+          mockTravelBlog = new TravelBlogsService({
             _id: '525a8422f6d0f87f0e407a33',
-            title: 'An Article about MEAN',
+            title: 'An TravelBlog about MEAN',
             content: 'MEAN rocks!'
           });
 
           // Initialize Controller
-          ArticlesController = $controller('ArticlesController as vm', {
+          TravelBlogsController = $controller('TravelBlogsController as vm', {
             $scope: $scope,
-            articleResolve: mockArticle
+            travelBlogResolve: mockTravelBlog
           });
         }));
 
         it('Should have the correct URL', function () {
-          expect(viewstate.url).toEqual('/:articleId');
+          expect(viewstate.url).toEqual('/:travelBlogId');
         });
 
         it('Should have a resolve function', function () {
           expect(typeof viewstate.resolve).toEqual('object');
-          expect(typeof viewstate.resolve.articleResolve).toEqual('function');
+          expect(typeof viewstate.resolve.travelBlogResolve).toEqual('function');
         });
 
         it('should respond to URL', inject(function ($state) {
           expect($state.href(viewstate, {
-            articleId: 1
-          })).toEqual('/articles/1');
+            travelBlogId: 1
+          })).toEqual('/travelBlogs/1');
         }));
 
-        it('should attach an article to the controller scope', function () {
-          expect($scope.vm.article._id).toBe(mockArticle._id);
+        it('should attach an travelBlog to the controller scope', function () {
+          expect($scope.vm.travelBlog._id).toBe(mockTravelBlog._id);
         });
 
         it('Should not be abstract', function () {
@@ -104,24 +104,24 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(viewstate.templateUrl).toBe('/modules/articles/client/views/view-travelBlog.client.view.html');
+          expect(viewstate.templateUrl).toBe('/modules/travelBlogs/client/views/view-travelBlog.client.view.html');
         });
       });
 
       describe('Handle Trailing Slash', function () {
         beforeEach(inject(function ($state, $rootScope, $templateCache) {
-          $templateCache.put('/modules/articles/client/views/list-travelBlogs.client.view.html', '');
+          $templateCache.put('/modules/travelBlogs/client/views/list-travelBlogs.client.view.html', '');
 
-          $state.go('articles.list');
+          $state.go('travelBlogs.list');
           $rootScope.$digest();
         }));
 
         it('Should remove trailing slash', inject(function ($state, $location, $rootScope) {
-          $location.path('articles/');
+          $location.path('travelBlogs/');
           $rootScope.$digest();
 
-          expect($location.path()).toBe('/articles');
-          expect($state.current.templateUrl).toBe('/modules/articles/client/views/list-travelBlogs.client.view.html');
+          expect($location.path()).toBe('/travelBlogs');
+          expect($state.current.templateUrl).toBe('/modules/travelBlogs/client/views/list-travelBlogs.client.view.html');
         }));
       });
     });
