@@ -1,0 +1,50 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.travelBlogPost._id ? 'Edit Post' : 'New Post'}}</h1>
+  </div>
+  <div class="pull-right">
+    <a ng-show="vm.travelBlog._id" class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.travelBlogForm" class="form-horizontal" ng-submit="vm.save(vm.form.travelBlogForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="title">Title</label>
+          <input name="title" type="text" ng-model="vm.travelBlogPost.title" id="title" class="form-control" placeholder="Title" required autofocus>
+          <div ng-messages="vm.form.travelBlogForm.posts.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Post title is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="location">Location</label>
+          <input name="location" type="text" ng-model="vm.travelBlogPost.location" id="location" class="form-control" placeholder="Location" required autofocus>
+          <div ng-messages="vm.form.travelBlogForm.posts.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Location is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="dateTime">Date & Time</label>
+          <input name="dateTime" type="text" ng-model="vm.travelBlogPost.dateTime" id="dateTime" class="form-control" placeholder="Date & Time" required autofocus>
+          <div ng-messages="vm.form.travelBlogForm.posts.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Date & Time is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="description">Description</label>
+          <textarea name="description" data-ng-model="vm.travelBlogPost.description" id="description" class="form-control" cols="30" rows="3" placeholder="Description"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">{{vm.travelBlogPost._id ? 'Update' : 'Create'}}</button>
+          <a class="btn btn-default" ng-click="vm.cancel()">Cancel</a>
+        </div>
+
+
+      </fieldset>
+    </form>
+  </div>
+</section>

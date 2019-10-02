@@ -11,5 +11,6 @@
     var vm = this;
 
     vm.travelBlogs = TravelBlogsService.query();
+    console.error(vm.travelBlogs);
   }
 }());

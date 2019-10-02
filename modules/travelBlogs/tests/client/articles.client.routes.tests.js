@@ -53,7 +53,7 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(liststate.templateUrl).toBe('/modules/travelBlogs/client/views/list-travelBlogs.client.view.html');
+          expect(liststate.templateUrl).toBe('/modules/travelBlogs/client/views/list-posts.client.view.html');
         });
       });
 
@@ -64,7 +64,7 @@
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
           viewstate = $state.get('travelBlogs.view');
-          $templateCache.put('/modules/travelBlogs/client/views/view-travelBlog.client.view.html', '');
+          $templateCache.put('/modules/travelBlogs/client/views/view-post.client.view.html', '');
 
           // create mock travelBlog
           mockTravelBlog = new TravelBlogsService({
@@ -104,13 +104,13 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(viewstate.templateUrl).toBe('/modules/travelBlogs/client/views/view-travelBlog.client.view.html');
+          expect(viewstate.templateUrl).toBe('/modules/travelBlogs/client/views/view-post.client.view.html');
         });
       });
 
       describe('Handle Trailing Slash', function () {
         beforeEach(inject(function ($state, $rootScope, $templateCache) {
-          $templateCache.put('/modules/travelBlogs/client/views/list-travelBlogs.client.view.html', '');
+          $templateCache.put('/modules/travelBlogs/client/views/list-posts.client.view.html', '');
 
           $state.go('travelBlogs.list');
           $rootScope.$digest();
@@ -121,7 +121,7 @@
           $rootScope.$digest();
 
           expect($location.path()).toBe('/travelBlogs');
-          expect($state.current.templateUrl).toBe('/modules/travelBlogs/client/views/list-travelBlogs.client.view.html');
+          expect($state.current.templateUrl).toBe('/modules/travelBlogs/client/views/list-posts.client.view.html');
         }));
       });
     });

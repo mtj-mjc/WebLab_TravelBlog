@@ -1,0 +1,58 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.post._id ? 'Edit Post' : 'New Post'}}</h1>
+  </div>
+  <div class="pull-right">
+    <a ng-show="vm.post._id" class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.postForm" class="form-horizontal" ng-submit="vm.save(vm.form.postForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="title">Title</label>
+          <input name="title" type="text" ng-model="vm.post.title" id="title" class="form-control" placeholder="Title" required autofocus>
+          <div ng-messages="vm.form.postForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Post title is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="location">Location</label>
+          <input name="location" type="text" ng-model="vm.post.location" id="location" class="form-control" placeholder="Location" autofocus>
+          <div ng-messages="vm.form.postForm.location.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Location is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="dateTime">Date</label>
+          <input name="dateTime" type="text" ng-model="vm.post.dateTime" id="dateTime" class="form-control" placeholder="Date (YYYY-MM-DD)" required autofocus>
+          <div ng-messages="vm.form.postForm.dateTime.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Date is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group" show-errors>
+          <label class="control-label" for="imgLink">Image Link</label>
+          <input name="imgLink" type="text" ng-model="vm.post.imgLink" id="imgLink" class="form-control" placeholder="Image Link" required autofocus>
+          <div ng-messages="vm.form.postForm.imgLink.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Image Link is required.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="control-label" for="description">Description</label>
+          <textarea name="description" data-ng-model="vm.post.description" id="description" class="form-control" cols="30" rows="10" placeholder="Description"></textarea>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">{{vm.post._id ? 'Update' : 'Create'}}</button>
+          <a class="btn btn-default" ng-click="vm.cancel()">Cancel</a>
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+</section>

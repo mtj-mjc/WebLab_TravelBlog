@@ -1,0 +1,23 @@
+<section>
+  <div class="page-header">
+    <h1>Welcome to {{ vm.posts[0].user.displayName}}'s Post
+      <a class="btn btn-primary pull-right" data-ui-sref="admin.posts.create">
+        <i class="glyphicon glyphicon-plus"></i>
+      </a></h1>
+  </div>
+  <div class="panel-group">
+    <a ng-repeat="post in vm.posts" ui-sref="posts.view({ postId: post._id })" class="list-group-item">
+      <small class="list-group-item-text">
+        Posted on
+        <span ng-bind="post.created | date:'mediumDate'"></span>
+      </small>
+      <small class="list-group-item-text pull-right">
+        {{post.travel_time_start}}-{{post.travel_time_end}}
+      </small>
+      |
+      <p class="label label-success">{{post.destination}}</p>
+      <h4 class="list-group-item-heading">{{post.title}}</h4>
+      <p class="list-group-item-text" ng-bind="post.description"></p>
+    </a>
+  </div>
+</section>

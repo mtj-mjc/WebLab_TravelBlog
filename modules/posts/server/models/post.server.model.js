@@ -10,9 +10,13 @@ var mongoose = require('mongoose'),
   chalk = require('chalk');
 
 /**
- * TravelBlog Schema
+ * Post Schema
  */
-var TravelBlogSchema = new Schema({
+var PostSchema = new Schema({
+  travelBlog: {
+    type: Schema.ObjectId,
+    ref: 'TravelBlog'
+  },
   created: {
     type: Date,
     default: Date.now
@@ -23,23 +27,15 @@ var TravelBlogSchema = new Schema({
     trim: true,
     required: 'Title cannot be blank'
   },
-  destination: {
+  location: {
     type: String,
     default: '',
-    trim: true,
-    required: 'Destination cannot be blank'
+    trim: true
   },
-  travel_time_start: {
+  dateTime: {
     type: Date,
-    default: '',
-    trim: true,
-    required: 'Start Date cannot be blank'
-  },
-  travel_time_end: {
-    type: Date,
-    default: '',
-    trim: true,
-    required: 'End Date cannot be blank'
+    default: Date.now,
+    required: 'Date cannot be blank'
   },
   description: {
     type: String,
@@ -47,22 +43,27 @@ var TravelBlogSchema = new Schema({
     trim: true,
     required: 'Description cannot be blank'
   },
+  imgLink: {
+    type: String,
+    default: '',
+    trim: true
+  },
   user: {
     type: Schema.ObjectId,
     ref: 'User'
   }
 });
 
-TravelBlogSchema.statics.seed = seed;
+PostSchema.statics.seed = seed;
 
-mongoose.model('TravelBlog', TravelBlogSchema);
+mongoose.model('Post', PostSchema);
 
 /**
-* Seeds the User collection with document (TravelBlog)
+* Seeds the User collection with document (Post)
 * and provided options.
 */
 function seed(doc, options) {
-  var TravelBlog = mongoose.model('TravelBlog');
+  var Post = mongoose.model('Post');
 
   return new Promise(function (resolve, reject) {
 
@@ -102,7 +103,7 @@ function seed(doc, options) {
 
     function skipDocument() {
       return new Promise(function (resolve, reject) {
-        TravelBlog
+        Post
           .findOne({
             title: doc.title
           })
@@ -119,7 +120,7 @@ function seed(doc, options) {
               return resolve(true);
             }
 
-            // Remove TravelBlog (overwrite)
+            // Remove Post (overwrite)
 
             existing.remove(function (err) {
               if (err) {
@@ -136,19 +137,19 @@ function seed(doc, options) {
       return new Promise(function (resolve, reject) {
         if (skip) {
           return resolve({
-            message: chalk.yellow('Database Seeding: TravelBlog\t' + doc.title + ' skipped')
+            message: chalk.yellow('Database Seeding: Post\t' + doc.title + ' skipped')
           });
         }
 
-        var travelBlog = new TravelBlog(doc);
+        var post = new Post(doc);
 
-        travelBlog.save(function (err) {
+        post.save(function (err) {
           if (err) {
             return reject(err);
           }
 
           return resolve({
-            message: 'Database Seeding: TravelBlog\t' + travelBlog.title + ' added'
+            message: 'Database Seeding: Post\t' + post.title + ' added'
           });
         });
       });

@@ -11,16 +11,18 @@
     var vm = this;
 
     vm.travelBlog = travelBlog;
+    console.error(vm.travelBlog);
     vm.authentication = Authentication;
     vm.form = {};
     vm.remove = remove;
     vm.save = save;
+    vm.cancel = cancel;
 
     // Remove existing TravelBlog
     function remove() {
       if ($window.confirm('Are you sure you want to delete?')) {
         vm.travelBlog.$remove(function () {
-          $state.go('admin.travelBlogs.list');
+          $state.go('travelBlogs.list');
           Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> TravelBlog deleted successfully!' });
         });
       }
@@ -39,13 +41,17 @@
         .catch(errorCallback);
 
       function successCallback(res) {
-        $state.go('admin.travelBlogs.list'); // should we send the User to the list or the updated TravelBlog's view?
+        $state.go('travelBlogs.view', { travelBlogId: vm.travelBlog._id }); // should we send the User to the list or the updated TravelBlog's view?
         Notification.success({ message: '<i class="glyphicon glyphicon-ok"></i> TravelBlog saved successfully!' });
       }
 
       function errorCallback(res) {
         Notification.error({ message: res.data.message, title: '<i class="glyphicon glyphicon-remove"></i> TravelBlog save error!' });
       }
+    }
+
+    function cancel() {
+      $state.go('travelBlogs.view', { travelBlogId: vm.travelBlog._id });
     }
   }
 }());

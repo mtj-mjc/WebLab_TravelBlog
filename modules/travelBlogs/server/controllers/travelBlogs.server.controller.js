@@ -45,9 +45,14 @@ exports.read = function (req, res) {
  */
 exports.update = function (req, res) {
   var travelBlog = req.travelBlog;
+  console.error(travelBlog);
 
   travelBlog.title = req.body.title;
-  travelBlog.content = req.body.content;
+  travelBlog.destination = req.body.destination;
+  travelBlog.travel_time_start = req.body.travel_time_start;
+  travelBlog.travel_time_end = req.body.travel_time_end;
+  travelBlog.description = req.body.description;
+
 
   travelBlog.save(function (err) {
     if (err) {

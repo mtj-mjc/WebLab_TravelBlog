@@ -53,7 +53,7 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(liststate.templateUrl).toBe('/modules/travelBlogs/client/views/admin/list-travelBlogs.client.view.html');
+          expect(liststate.templateUrl).toBe('/modules/travelBlogs/client/views/admin/list-posts.client.view.html');
         });
       });
 
@@ -64,7 +64,7 @@
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
           createstate = $state.get('admin.travelBlogs.create');
-          $templateCache.put('/modules/travelBlogs/client/views/admin/form-travelBlog.client.view.html', '');
+          $templateCache.put('/modules/travelBlogs/client/views/admin/form-post.client.view.html', '');
 
           // Create mock travelBlog
           mockTravelBlog = new TravelBlogsService();
@@ -99,7 +99,7 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(createstate.templateUrl).toBe('/modules/travelBlogs/client/views/admin/form-travelBlog.client.view.html');
+          expect(createstate.templateUrl).toBe('/modules/travelBlogs/client/views/admin/form-post.client.view.html');
         });
       });
 
@@ -110,7 +110,7 @@
 
         beforeEach(inject(function ($controller, $state, $templateCache) {
           editstate = $state.get('admin.travelBlogs.edit');
-          $templateCache.put('/modules/travelBlogs/client/views/admin/form-travelBlog.client.view.html', '');
+          $templateCache.put('/modules/travelBlogs/client/views/admin/form-post.client.view.html', '');
 
           // Create mock travelBlog
           mockTravelBlog = new TravelBlogsService({
@@ -150,7 +150,7 @@
         });
 
         it('Should have templateUrl', function () {
-          expect(editstate.templateUrl).toBe('/modules/travelBlogs/client/views/admin/form-travelBlog.client.view.html');
+          expect(editstate.templateUrl).toBe('/modules/travelBlogs/client/views/admin/form-post.client.view.html');
         });
 
         xit('Should go to unauthorized route', function () {
