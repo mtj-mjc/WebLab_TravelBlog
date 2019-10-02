@@ -8,11 +8,11 @@
   menuConfig.$inject = ['menuService'];
 
   function menuConfig(menuService) {
-    menuService.addMenuItem('topbar', {
+  /*  menuService.addMenuItem('topbar', {
       title: 'Posts',
       state: 'posts.list',
       roles: ['*']
     });
-
+*/
   }
 }());
